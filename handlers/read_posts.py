@@ -20,28 +20,13 @@ async def read_posts(message: Message):
     if not posts:
         await state_dispenser.delete(message.peer_id)
         ctx.set(message.peer_id, {})
-        
-        await message.answer('☹️Все доступные для оценки посты разобрали\n\n💡Вернитесь немного позже')
-
-        user = db.get_user_by_id(user_id=message.peer_id)
-        posts = db.get_post_by_id(user_id=message.peer_id)
 
         keyboard = Keyboard(one_time=True)
         keyboard.add(Text('Читать посты'))
         keyboard.add(Text('Добавить пост'))
+        
+        await message.answer('☹️Все доступные для оценки посты разобрали\n\n💡Вернитесь немного позже', keyboard=keyboard)
 
-        text = str(user)+f'\n💼Добавлено постов: {len(posts)}'+f'\n👀Оценено постов: {user.tasks}'
-        if len(posts) != 0:
-            text += '\n\n🌐Посты в работе:'
-            for i in posts:
-                b = i.link
-                try:
-                    b = await api.utils.get_short_link(i.link)
-                    b = b.short_url
-                except:
-                    b = i.link
-                text += "\n"+b + f' – {i.all-i.count} 💬 из ' + f'{i.all} 💬'
-        await message.answer(text, keyboard=keyboard)
     else:
         ctx.set(message.peer_id, {})
         data = ctx.get(message.peer_id)

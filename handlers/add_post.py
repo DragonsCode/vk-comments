@@ -27,27 +27,12 @@ async def add_post(message: Message):
             keyboard=keyboard
         )
     else:
-        await message.answer('☹️Чтобы добавить пост, необходимо заработать баллы\n\n💡Сделайте это в "Читать посты"!')
-
-        user = db.get_user_by_id(user_id=message.peer_id)
-        posts = db.get_post_by_id(user_id=message.peer_id)
 
         keyboard = Keyboard(one_time=True)
         keyboard.add(Text('Читать посты'))
         keyboard.add(Text('Добавить пост'))
 
-        text = str(user)+f'\n💼Добавлено постов: {len(posts)}'+f'\n👀Оценено постов: {user.tasks}'
-        if len(posts) != 0:
-            text += '\n\n🌐Посты в работе:'
-            for i in posts:
-                b = i.link
-                try:
-                    b = await api.utils.get_short_link(i.link)
-                    b = b.short_url
-                except:
-                    b = i.link
-                text += "\n"+b + f' – {i.all-i.count} 💬 из ' + f'{i.all} 💬'
-        await message.answer(text, keyboard=keyboard)
+        await message.answer('☹️Чтобы добавить пост, необходимо заработать баллы\n\n💡Сделайте это в "Читать посты"!', keyboard=keyboard)
 
 
 @add_post_labeler.message(state=PostData.COUNT)
