@@ -32,7 +32,7 @@ async def read_posts(message: Message):
 
         text = str(user)+f'\n💼Добавлено постов: {len(posts)}'+f'\n👀Оценено постов: {user.tasks}'
         if len(posts) != 0:
-            text += '\n\nПосты в работе:'
+            text += '\n\n🌐Посты в работе:'
             for i in posts:
                 b = i.link
                 try:
@@ -81,7 +81,7 @@ async def watch_post(message: Message):
                 if post.count <= 0:
                     db.delete_post(post.id)
                     db.delete_view(post.id)
-                    await api.messages.send(peer_id=post.user_id, message=f'Your post {post.link} have been removed', random_id=0)
+                    await api.messages.send(peer_id=post.user_id, message=f'Работа над вашим постом {post.link} была завершена, получено {post.comms}💬', random_id=0)
                 
                 await message.answer(f'✅Отлично! За выполнение задания вам начислено 8 балла\n\n💡У вас: {user.balance} баллов')
                 await api.messages.set_activity(type='typing', peer_id=message.peer_id)
@@ -117,7 +117,7 @@ async def watch_post(message: Message):
 
         text = str(user)+f'\n💼Добавлено постов: {len(posts)}'+f'\n👀Оценено постов: {user.tasks}'
         if len(posts) != 0:
-            text += '\n\nПосты в работе:'
+            text += '\n\n🌐Посты в работе:'
             for i in posts:
                 b = i.link
                 try:

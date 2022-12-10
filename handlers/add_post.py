@@ -38,7 +38,7 @@ async def add_post(message: Message):
 
         text = str(user)+f'\n💼Добавлено постов: {len(posts)}'+f'\n👀Оценено постов: {user.tasks}'
         if len(posts) != 0:
-            text += '\n\nПосты в работе:'
+            text += '\n\n🌐Посты в работе:'
             for i in posts:
                 b = i.link
                 try:
@@ -99,7 +99,7 @@ async def post_link(message: Message):
 
             text = str(user)+f'\n💼Добавлено постов: {len(posts)}'+f'\n👀Оценено постов: {user.tasks}'
             if len(posts) != 0:
-                text += '\n\nПосты в работе:'
+                text += '\n\n🌐Посты в работе:'
                 for i in posts:
                     b = i.link
                     try:

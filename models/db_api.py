@@ -23,12 +23,12 @@ class User:
         )
 
 class Posts:
-    def __init__(self, id, user_id, link, count, all):
+    def __init__(self, id, user_id, link, count, comms):
         self.id = id
         self.user_id = user_id
         self.link = link
         self.count = count
-        self.all = all
+        self.comms = comms
     
     def __str__(self):
         return self.link
