@@ -1,4 +1,5 @@
 from models.database import MyDatabase, SQLITE, USERS, POSTS, VIEW
+import random
 
 dbms = MyDatabase(SQLITE)
 
@@ -78,7 +79,8 @@ class methods:
         prev = dbms.get_by(db=USERS, vals=f'user_id={user_id}')
         if prev:
             return 1
-        dbms.insert(db=USERS, vals=f"{user_id}, 50, 0, 3", columns="user_id, balance, tasks, skips") # insert data
+        bal = random.choice([0, 50])
+        dbms.insert(db=USERS, vals=f"{user_id}, {bal}, 0, 3", columns="user_id, balance, tasks, skips") # insert data
         return 0
     
     def change_balance(user_id, balance):
