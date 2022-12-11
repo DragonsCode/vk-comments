@@ -8,13 +8,14 @@ import asyncio
 from models.db_api import dbms
 from models.db_api import methods as db
 from config import api, state_dispenser, labeler, scheduler
-from handlers import activate_labeler, read_post_labeler, add_post_labeler
+from handlers import activate_labeler, read_post_labeler, add_post_labeler, admin_labeler
 from tasks.bonus import bonus_schedule
 
 
 labeler.load(activate_labeler)
 labeler.load(read_post_labeler)
 labeler.load(add_post_labeler)
+labeler.load(admin_labeler)
 
 scheduler.start()
 

@@ -69,7 +69,10 @@ class methods:
                 users.append(User(i[0], i[1], i[2], i[3], i[4]))
             return users
         elif user_id is not None:
-            res = dbms.get_by(db=USERS, vals=f'user_id={user_id}')[0] # simple query
+            res = dbms.get_by(db=USERS, vals=f'user_id={user_id}') # simple query
+            if not res:
+                return 0
+            res = res[0]
             return User(res[0], res[1], res[2], res[3], res[4])
         elif id is not None:
             res = dbms.get_by(db=USERS, vals=f'id={id}')[0] # simple query
