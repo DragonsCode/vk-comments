@@ -36,5 +36,5 @@ async def agree(message: Message):
                 b = b.short_url
             except:
                 b = i.link
-            text += "\n"+b + f' – {i.all-i.count} 💬 из ' + f'{i.all} 💬'
+            text += "\n"+b + f' – {i.comms-i.count} 💬 из ' + f'{i.comms} 💬'
     await message.answer(text, keyboard=keyboard)
