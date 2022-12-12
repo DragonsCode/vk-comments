@@ -2,6 +2,7 @@ from vkbottle.bot import BotLabeler, Message, rules
 from vkbottle import Keyboard, Text
 
 import asyncio
+import logging
 
 from models.db_api import methods as db
 from config import api, state_dispenser
@@ -51,7 +52,7 @@ async def watch_post(message: Message):
         url = data['post_link']
         fullname = f'{user[0].first_name} {user[0].last_name}'
         ok, comm = get_comment(fullname, url)
-        print(comm)
+        logging.info(comm)
         if not ok:
             if comm == 'comment is too short':
                 await message.answer('👀Ваш комментарий слишком короткий\n\n💡Старайтесь писать комментарии развернуто, так, бот точно зачтет труды')
