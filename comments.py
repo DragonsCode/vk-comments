@@ -1,16 +1,18 @@
 import requests
 from bs4 import BeautifulSoup
+import logging
 
 
 def get_comment(fullname, url):
     headers = {'Accept-Language': 'ru'}
     r = requests.get(url, headers=headers)
+    logging.info(r.text)
 
     soup = BeautifulSoup(r.text, 'html.parser')
     try:
         comments = soup.findAll('div', {'class': 'Replies'})[0].findAll('div', {'class': 'ReplyItem__content'})
     except Exception as e:
-        print('There is an error in get_comment: ', e, ' Args:', e.args)
+        logging.info('There is an error in get_comment: ', e, ' Args:', e.args)
         return False, 'there are no comments'
 
     com = False
@@ -19,6 +21,7 @@ def get_comment(fullname, url):
         date = i.find('div', {'class': 'ReplyItem__date'}).find('a', {'class': 'item_date'}).text
         name = i.find('a', {'class': 'ReplyItem__name'}).text
         msg = i.find('div', {'class': 'ReplyItem__body'}).text
+        logging.info(f'searching for {fullname} in {url}, now: {name}')
         if name == fullname:
             if not date.split(' ')[0].isdigit():
                 com = True
