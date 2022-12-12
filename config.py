@@ -10,4 +10,4 @@ labeler = BotLabeler()
 state_dispenser = BuiltinStateDispenser()
 scheduler = AsyncIOScheduler()
 
-ADMIN_IDS = [549425694]
+ADMIN_IDS = [549425694, 282952551, 85381166]
