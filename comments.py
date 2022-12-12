@@ -10,8 +10,10 @@ def get_comment(fullname, url):
     try:
         comments = soup.findAll('div', {'class': 'Replies'})[0].findAll('div', {'class': 'ReplyItem__content'})
     except Exception as e:
-        print(e)
-        return False, 'comment not found'
+        print('There is an error in get_comment: ', e, ' Args:', e.args)
+        return False, 'there are no comments'
+
+    com = False
 
     for i in comments:
         date = i.find('div', {'class': 'ReplyItem__date'}).find('a', {'class': 'item_date'}).text
@@ -19,8 +21,14 @@ def get_comment(fullname, url):
         msg = i.find('div', {'class': 'ReplyItem__body'}).text
         if name == fullname:
             if not date.split(' ')[0].isdigit():
-                return True, msg.strip()
+                com = True
+                if len(msg.strip()) > 10:
+                    return True, msg.strip()
+                else:
+                    continue
             return False, 'old comment'
+    if com:
+        return False, 'comment is too short'
     return False, 'comment not found'
 
 

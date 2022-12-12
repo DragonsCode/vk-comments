@@ -53,28 +53,28 @@ async def watch_post(message: Message):
         ok, comm = get_comment(fullname, url)
         print(comm)
         if not ok:
-            await message.answer('☹️Не вижу вашего комментария под указанным постом\n\n💡Если вы оставили комментарий, но происходит ошибка - стоит подождать пару минут, и попробовать снова')
-        else:
-            if len(comm) > 10:
-                db.change_balance(message.peer_id, 8)
-                user = db.get_user_by_id(message.peer_id)
-                db.insert_view(message.peer_id, data['post_id'])
-                db.change_tasks(message.peer_id, 1)
-                db.change_count(data['post_id'], -1)
-
-                post = db.get_post_by_id(id=data['post_id'])
-                if post.count <= 0:
-                    db.delete_post(post.id)
-                    db.delete_view(post.id)
-                    await api.messages.send(peer_id=post.user_id, message=f'Работа над вашим постом {post.link} была завершена, получено {post.comms}💬', random_id=0)
-                
-                await message.answer(f'✅Отлично! За выполнение задания вам начислено 8 балла\n\n💡У вас: {user.balance} баллов')
-                await api.messages.set_activity(type='typing', peer_id=message.peer_id)
-                await asyncio.sleep(2)
-                await read_posts(message)
-            else:
+            if comm == 'comment is too short':
                 await message.answer('👀Ваш комментарий слишком короткий\n\n💡Старайтесь писать комментарии развернуто, так, бот точно зачтет труды')
-    
+            else:
+                await message.answer('☹️Не вижу вашего комментария под указанным постом\n\n💡Если вы оставили комментарий, но происходит ошибка - стоит подождать пару минут, и попробовать снова')
+        else:
+            db.change_balance(message.peer_id, 8)
+            user = db.get_user_by_id(message.peer_id)
+            db.insert_view(message.peer_id, data['post_id'])
+            db.change_tasks(message.peer_id, 1)
+            db.change_count(data['post_id'], -1)
+
+            post = db.get_post_by_id(id=data['post_id'])
+            if post.count <= 0:
+                db.delete_post(post.id)
+                db.delete_view(post.id)
+                await api.messages.send(peer_id=post.user_id, message=f'Работа над вашим постом {post.link} была завершена, получено {post.comms}💬', random_id=0)
+                
+            await message.answer(f'✅Отлично! За выполнение задания вам начислено 8 балла\n\n💡У вас: {user.balance} баллов')
+            await api.messages.set_activity(type='typing', peer_id=message.peer_id)
+            await asyncio.sleep(2)
+            await read_posts(message)
+
 
     if message.text == 'Пропустить':
         data = ctx.get(message.peer_id)
