@@ -71,7 +71,7 @@ async def watch_post(message: Message):
                 db.delete_view(post.id)
                 await api.messages.send(peer_id=post.user_id, message=f'Работа над вашим постом {post.link} была завершена, получено {post.comms}💬', random_id=0)
                 
-            await message.answer(f'✅Отлично! За выполнение задания вам начислено 8 балла\n\n💡У вас: {user.balance} баллов')
+            await message.answer(f'✅Отлично! За выполнение задания вам начислено 8 баллов\n\n💡У вас: {user.balance} баллов')
             await api.messages.set_activity(type='typing', peer_id=message.peer_id)
             await asyncio.sleep(2)
             await read_posts(message)
