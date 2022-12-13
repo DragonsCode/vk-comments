@@ -56,7 +56,7 @@ async def post_link(message: Message):
     count = data['count']
     link = message.text
 
-    ok, msg = get_post(link)
+    ok, msg = await get_post(link)
     if not ok:
         if msg == 'Old post':
             await message.answer('☹️Этот пост не подойдет\n🕛Я принимаю только записи, существующие менее двух суток')

@@ -47,11 +47,11 @@ async def read_posts(message: Message):
 @read_post_labeler.message(state=DatingData.WHAT)
 async def watch_post(message: Message):
     if message.text == 'Проверить':
-        user = await api.users.get(message.from_id)
+        # user = await api.users.get(message.from_id)
         data = ctx.get(message.peer_id)
         url = data['post_link']
-        fullname = f'{user[0].first_name} {user[0].last_name}'
-        ok, comm = get_comment(fullname, url)
+        # fullname = f'{user[0].first_name} {user[0].last_name}'
+        ok, comm = await get_comment(message.peer_id, url)
         logging.info(comm)
         if not ok:
             if comm == 'comment is too short':
