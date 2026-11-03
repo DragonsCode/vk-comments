@@ -17,9 +17,6 @@ class MyDatabase:
     # http://docs.sqlalchemy.org/en/latest/core/engines.html
     DB_ENGINE = {
         SQLITE: 'sqlite:///{DB}',
-        # MYSQL: 'mysql://scott:tiger@localhost/{DB}',
-        # POSTGRESQL: 'postgresql://scott:tiger@localhost/{DB}',
-        # MICROSOFT_SQL_SERVER: 'mssql+pymssql://scott:tiger@hostname:port/{DB}'
     }
 
     # Main DB Connection Ref Obj
